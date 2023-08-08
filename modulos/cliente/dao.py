@@ -40,6 +40,7 @@ class DaoCliente(SQLCliente):
             return
         self.columns_name = [desc[0] for desc in self.cursor.description]
 
+
     def save(self, cliente):
         sql = self.INSERT.format(self.TABLE, cliente.nome, cliente.cpf)
         #self.cursor = self.connect.get_cursor()
@@ -60,3 +61,11 @@ class DaoCliente(SQLCliente):
             cliente = Cliente(**data)
             return cliente
         return None
+
+    def delete(self, id):
+        cliente = self.get_by_id(id)
+        if cliente:
+            sql = self.DELETE.format(self.TABLE, id)
+            self.cursor.execute(sql)
+            self.connect.commit()
+        return cliente

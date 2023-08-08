@@ -37,4 +37,6 @@ class BusinessCliente(BaseValidade):
         cliente = Cliente(**data)
         cliente = self.cliente_dao.save(cliente)
         return cliente
-    
+
+    def delete(self, id):
+        return self.cliente_dao.delete(id)

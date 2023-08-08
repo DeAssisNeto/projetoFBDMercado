@@ -2,6 +2,7 @@
 
 POST = 'POST'
 GET = 'GET'
+DELETE = 'DELETE'
 
 class BaseValidade():
     def validar(self, data, campos, objetc):
@@ -9,7 +10,6 @@ class BaseValidade():
         flag_error = False
         for campo in campos:
             func_name = '_validate_{}'.format(campo)
-            print(func_name)
             func = hasattr(objetc, func_name)
             if func:
                 func = getattr(objetc, func_name)

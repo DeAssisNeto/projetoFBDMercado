@@ -225,8 +225,8 @@ INSERT INTO produto_pedido (id_produto, id_pedido) VALUES
     (30, 20);
 -----------------------------------------------------------------------------------------------------------------
 
-SELECT * FROM produto p
-WHERE p.preco = 30.00;
+SELECT * FROM cliente p
+WHERE id=21;
 
 SELECT * FROM produto;
 SELECT * FROM cliente;

@@ -29,9 +29,16 @@ def get():
         clientes = business_cliente.get_all(name)
         return clientes
 
-@app_cliente.route('/<int:id>/', methods=[utils.GET, utils.POST])
+@app_cliente.route('/<int:id>/', methods=[utils.GET])
 def get_by_id(id):
     cliente = business_cliente.get_by_id(id)
     if not cliente:
         return make_response({"error": "Cliente não encontrado"}, 404)
     return cliente.get_json()
+
+@app_cliente.route('/<int:id>/', methods=[utils.DELETE])
+def delete(id):
+    delete = business_cliente.delete(id)
+    if delete:
+        return make_response({"Sucess": "DELETED"}, 200)
+    return make_response({"error": "Cliente não encontrado"}, 404)

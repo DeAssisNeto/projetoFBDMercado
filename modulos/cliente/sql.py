@@ -6,3 +6,4 @@ class SQLCliente(object):
     SELECT_ALL_SEARCH = "SELECT * FROM {} WHERE {} ILIKE '%{}%'"
     INSERT = "INSERT INTO {} (nome, cpf) VALUES ('{}', '{}') RETURNING id"
     SELECT_BY_CPF = "SELECT * FROM {} WHERE cpf='{}'"
+    DELETE = "DELETE FROM {} WHERE id={}"
