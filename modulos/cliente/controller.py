@@ -38,7 +38,17 @@ def get_by_id(id):
 
 @app_cliente.route('/<int:id>/', methods=[utils.DELETE])
 def delete(id):
-    delete = business_cliente.delete(id)
-    if delete:
+    delete_cliente = business_cliente.delete(id)
+    if delete_cliente:
         return make_response({"Sucess": "DELETED"}, 200)
     return make_response({"error": "Cliente não encontrado"}, 404)
+
+@app_cliente.route('/<int:id>', methods=[utils.PUT])
+def update(id):
+    data = request.get_json()
+    eror, msg = base_validade.validar(data, Cliente.CAMPOS_OBRIGATORIOS, business_cliente)
+    if eror:
+        update_cliente = business_cliente.update(id, data)
+        if update_cliente:
+            return make_response({"Sucess": "UPDATED"}, 200)
+    return make_response(msg, 404)

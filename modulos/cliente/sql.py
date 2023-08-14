@@ -7,3 +7,5 @@ class SQLCliente(object):
     INSERT = "INSERT INTO {} (nome, cpf) VALUES ('{}', '{}') RETURNING id"
     SELECT_BY_CPF = "SELECT * FROM {} WHERE cpf='{}'"
     DELETE = "DELETE FROM {} WHERE id={}"
+    UPDATE_NOME = "UPDATE cliente SET nome='{}' WHERE id={}"
+    UPDATE_CPF = "UPDATE cliente SET cpf='{}' WHERE id={}"

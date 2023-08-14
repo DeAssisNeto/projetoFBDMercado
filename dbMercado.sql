@@ -228,6 +228,8 @@ INSERT INTO produto_pedido (id_produto, id_pedido) VALUES
 SELECT * FROM cliente p
 WHERE id=21;
 
+UPDATE cliente SET nome='José Grilo'SET cpf='1234567890' WHERE id=1;
+
 SELECT * FROM produto;
 SELECT * FROM cliente;
 SELECT * FROM endereco;

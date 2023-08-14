@@ -69,3 +69,16 @@ class DaoCliente(SQLCliente):
             self.cursor.execute(sql)
             self.connect.commit()
         return cliente
+
+    def update(self, id, cliente_new):
+        cliente_old = self.get_by_id(id)
+        sql = self.UPDATE_NOME.format(cliente_new.nome, id)
+        sql2 = self.UPDATE_CPF.format( cliente_new.cpf, id)
+        print(sql)
+        if cliente_old:
+            self.cursor.execute(sql)
+            # self.connect.commit()
+            self.cursor.execute(sql2)
+            self.connect.commit()
+            return True
+        return False

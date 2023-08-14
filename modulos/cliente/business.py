@@ -33,6 +33,9 @@ class BusinessCliente(BaseValidade):
     def get_by_id(self, id):
         return self.cliente_dao.get_by_id(id)
 
+    def get_by_cpf(self, cpf):
+        return self.cliente_dao.get_by_cpf(cpf)
+
     def save(self, data):
         cliente = Cliente(**data)
         cliente = self.cliente_dao.save(cliente)
@@ -40,3 +43,9 @@ class BusinessCliente(BaseValidade):
 
     def delete(self, id):
         return self.cliente_dao.delete(id)
+
+    def update(self, id, cliente_new):
+        return self.cliente_dao.update(id, Cliente(**cliente_new))
+
+    def create_objetc(self, data):
+        return

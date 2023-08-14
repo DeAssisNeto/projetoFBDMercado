@@ -3,6 +3,7 @@
 POST = 'POST'
 GET = 'GET'
 DELETE = 'DELETE'
+PUT = 'PUT'
 
 class BaseValidade():
     def validar(self, data, campos, objetc):
@@ -18,3 +19,5 @@ class BaseValidade():
                     mensagem_error[campo] = data_value
                     flag_error = True
         return flag_error, mensagem_error
+
+    # def creat
