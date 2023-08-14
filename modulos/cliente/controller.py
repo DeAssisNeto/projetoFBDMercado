@@ -3,6 +3,7 @@ from flask import Blueprint, request, make_response
 import utils
 from modulos.cliente.business import BusinessCliente
 from modulos.cliente.cliente import Cliente
+from modulos.cliente.sql import SQLCliente
 
 ROTA_CLIENTE = '/cliente'
 app_cliente = Blueprint('app_cliente',
@@ -46,9 +47,12 @@ def delete(id):
 @app_cliente.route('/<int:id>', methods=[utils.PUT])
 def update(id):
     data = request.get_json()
-    eror, msg = base_validade.validar(data, Cliente.CAMPOS_OBRIGATORIOS, business_cliente)
-    if eror:
+    error, msg = base_validade.validar(data, Cliente.CAMPOS_OBRIGATORIOS, business_cliente)
+    if not error:
         update_cliente = business_cliente.update(id, data)
         if update_cliente:
             return make_response({"Sucess": "UPDATED"}, 200)
+        else:
+            msg = {"error": "Cliente não encontrado"}
     return make_response(msg, 404)
+

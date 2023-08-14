@@ -11,7 +11,7 @@ class DaoCliente(SQLCliente):
     def get_all(self, search):
         sql = self.SELECT_ALL
         if search:
-            sql = self.SELECT_ALL_SEARCH.format(self.TABLE, self.COLUMN_NAME, search)
+            sql = self.SELECT_ALL_SEARCH.format(self.TABLE, self.COLUMN_NOME, search)
         self._execute_sql(sql)
         clientes = self.cursor.fetchall()
         clientes_list = []
@@ -43,12 +43,10 @@ class DaoCliente(SQLCliente):
 
     def save(self, cliente):
         sql = self.INSERT.format(self.TABLE, cliente.nome, cliente.cpf)
-        #self.cursor = self.connect.get_cursor()
         self.cursor.execute(sql)
         self.connect.commit()
         data = self.cursor.fetchone()
         cliente.id = data[0]
-        #self.cursor.close()
         return cliente
 
     def close_and_new_connection(self):
@@ -65,20 +63,17 @@ class DaoCliente(SQLCliente):
     def delete(self, id):
         cliente = self.get_by_id(id)
         if cliente:
-            sql = self.DELETE.format(self.TABLE, id)
+            sql = self.DELETE.format(id)
             self.cursor.execute(sql)
             self.connect.commit()
-        return cliente
+            return True
+        return False
 
     def update(self, id, cliente_new):
         cliente_old = self.get_by_id(id)
-        sql = self.UPDATE_NOME.format(cliente_new.nome, id)
-        sql2 = self.UPDATE_CPF.format( cliente_new.cpf, id)
-        print(sql)
+        sql = self.UPDATE.format(cliente_new.nome, cliente_new.cpf, id)
         if cliente_old:
             self.cursor.execute(sql)
-            # self.connect.commit()
-            self.cursor.execute(sql2)
             self.connect.commit()
             return True
         return False

@@ -9,6 +9,8 @@ class BaseValidade():
     def validar(self, data, campos, objetc):
         mensagem_error = {}
         flag_error = False
+        if hasattr(campos, 'id'):
+            pass
         for campo in campos:
             func_name = '_validate_{}'.format(campo)
             func = hasattr(objetc, func_name)
@@ -20,4 +22,3 @@ class BaseValidade():
                     flag_error = True
         return flag_error, mensagem_error
 
-    # def creat

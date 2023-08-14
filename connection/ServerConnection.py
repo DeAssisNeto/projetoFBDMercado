@@ -16,4 +16,3 @@ class ConnectDataBase:
 
     def commit(self):
         self._connect.commit()
-

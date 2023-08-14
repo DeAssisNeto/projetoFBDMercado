@@ -53,20 +53,21 @@ INSERT INTO produto (nome, quantidade, preco, validade, cod_barras) VALUES
 CREATE TABLE IF NOT EXISTS cliente (
     id SERIAL PRIMARY KEY,
     cpf VARCHAR(14),
-    nome VARCHAR(255)
+    nome VARCHAR(255),
+    status BOOLEAN
 );
 -- ========= INSERT CLIENTE ================================================================================
-INSERT INTO cliente (cpf, nome) VALUES
-    ('111.111.111-11', 'João da Silva'),
-    ('222.222.222-22', 'Maria Santos'),
-    ('333.333.333-33', 'Pedro Oliveira'),
-    ('444.444.444-44', 'Ana Pereira'),
-    ('555.555.555-55', 'José Almeida'),
-    ('666.666.666-66', 'Carla Souza'),
-    ('777.777.777-77', 'Rafael Lima'),
-    ('888.888.888-88', 'Camila Silva'),
-    ('999.999.999-99', 'Fernando Castro'),
-    ('000.000.000-00', 'Mariana Rocha');
+INSERT INTO cliente (cpf, nome, status) VALUES
+    ('111.111.111-11', 'João da Silva', True),
+    ('222.222.222-22', 'Maria Santos', True),
+    ('333.333.333-33', 'Pedro Oliveira', True),
+    ('444.444.444-44', 'Ana Pereira', True),
+    ('555.555.555-55', 'José Almeida', True),
+    ('666.666.666-66', 'Carla Souza', True),
+    ('777.777.777-77', 'Rafael Lima', True),
+    ('888.888.888-88', 'Camila Silva', True),
+    ('999.999.999-99', 'Fernando Castro', True),
+    ('000.000.000-00', 'Mariana Rocha', True);
 
 -----------------------------------------------------------------------------------------------------------------
 
@@ -228,10 +229,11 @@ INSERT INTO produto_pedido (id_produto, id_pedido) VALUES
 SELECT * FROM cliente p
 WHERE id=21;
 
-UPDATE cliente SET nome='José Grilo'SET cpf='1234567890' WHERE id=1;
-
+select * FROM cliente WHERE id=1 AND status=TRUE;
 SELECT * FROM produto;
 SELECT * FROM cliente;
 SELECT * FROM endereco;
 SELECT * FROM pedido;
 SELECT * FROM produto_pedido;
+
+SELECT count(*) FROM cliente
