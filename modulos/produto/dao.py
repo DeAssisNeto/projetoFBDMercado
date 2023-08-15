@@ -31,10 +31,39 @@ class DaoProduto(SQLProduto):
             produtos_list.append(data)
         return produtos_list
 
+    def get_by_cod_barras(self, cod_barras):
+        sql = self.SELECT_BY_COD_BARRAS.format(self.TABLE, cod_barras)
+        self._execute_sql(sql)
+        produto = self._create_objetc(self.cursor.fetchone())
+        return produto
+
+    def get_by_id(self, id):
+        sql = self.SELECT_BY_ID.format(self.TABLE, id)
+        self._execute_sql(sql)
+        produto = self._create_objetc(self.cursor.fetchone())
+        return produto
     def save(self, produto):
-        sql = self.INSERT.format(self.TABLE, produto.nome, produto.preco, produto.validade, produto.quantidade)
+        sql = self.INSERT.format(self.TABLE, produto.nome, produto.preco, produto.validade, produto.cod_barras, produto.quantidade)
         self.cursor.execute(sql)
         self.connect.commit()
         data = self.cursor.fetchone()
         produto.id = data[0]
         return produto
+
+    def delete(self, id):
+        produto = self.get_by_id(id)
+        if produto:
+            sql = self.DELETE.format(id)
+            self.cursor.execute(sql)
+            self.connect.commit()
+            return True
+        return False
+
+    def update(self, id, produto_new):
+        produto_old = self.get_by_id(id)
+        sql = self.UPDATE.format(produto_new.nome, produto_new.preco, produto_new.validade, produto_new.cod_barras, produto_new.quantidade)
+        if produto_old:
+            self.cursor.execute(sql)
+            self.connect.commit()
+            return True
+        return False
