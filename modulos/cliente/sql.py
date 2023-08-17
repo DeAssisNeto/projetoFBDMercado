@@ -6,6 +6,6 @@ class SQLCliente(object):
     SELECT_ALL_SEARCH = "SELECT * FROM {} WHERE {} ILIKE '%{}%' AND status=TRUE"
     INSERT = "INSERT INTO {} (nome, cpf, status) VALUES ('{}', '{}', TRUE) RETURNING id"
     SELECT_BY_CPF = "SELECT * FROM {} WHERE cpf='{}' AND status=TRUE"
-    DELETE = "UPDATE cliente SET status=FALSE WHERE id={}"
-    UPDATE = "UPDATE cliente SET nome='{}', cpf='{}' WHERE id={}"
+    DELETE = "UPDATE {} SET status=FALSE WHERE id={}"
+    UPDATE = "UPDATE {} SET nome='{}', cpf='{}' WHERE id={}"
     QUANT = F"SELECT count(*) FROM {TABLE}"

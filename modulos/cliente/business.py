@@ -1,9 +1,9 @@
 from modulos.cliente.cliente import Cliente
 from modulos.cliente.dao import DaoCliente
-from utils import BaseValidade
+from utils import BaseValidate
 
 
-class BusinessCliente(BaseValidade):
+class BusinessCliente(BaseValidate):
     def __init__(self):
         self.cliente_dao = DaoCliente()
 
@@ -41,6 +41,3 @@ class BusinessCliente(BaseValidade):
 
     def update(self, id, cliente_new):
         return self.cliente_dao.update(id, Cliente(**cliente_new))
-
-    def create_objetc(self, data):
-        return

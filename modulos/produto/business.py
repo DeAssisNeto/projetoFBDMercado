@@ -1,9 +1,9 @@
 from modulos.produto.dao import DaoProduto
 from modulos.produto.produto import Produto
-from utils import BaseValidade
+from utils import BaseValidate
 
 
-class BusinessProduto(BaseValidade):
+class BusinessProduto(BaseValidate):
     def __init__(self):
         self.produto_dao = DaoProduto()
 

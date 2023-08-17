@@ -53,7 +53,7 @@ class DaoProduto(SQLProduto):
     def delete(self, id):
         produto = self.get_by_id(id)
         if produto:
-            sql = self.DELETE.format(id)
+            sql = self.DELETE.format(self.TABLE, id)
             self.cursor.execute(sql)
             self.connect.commit()
             return True
@@ -61,8 +61,8 @@ class DaoProduto(SQLProduto):
 
     def update(self, id, produto_new):
         produto_old = self.get_by_id(id)
-        sql = self.UPDATE.format(produto_new.nome, produto_new.preco, produto_new.validade, produto_new.cod_barras, produto_new.quantidade)
         if produto_old:
+            sql = self.UPDATE.format(self.TABLE, produto_new.nome, produto_new.preco, produto_new.validade, produto_new.cod_barras, produto_new.quantidade, id)
             self.cursor.execute(sql)
             self.connect.commit()
             return True

@@ -3,7 +3,6 @@ from flask import Blueprint, request, make_response
 import utils
 from modulos.cliente.business import BusinessCliente
 from modulos.cliente.cliente import Cliente
-from modulos.cliente.sql import SQLCliente
 
 ROTA_CLIENTE = '/cliente'
 app_cliente = Blueprint('app_cliente',
@@ -11,7 +10,7 @@ app_cliente = Blueprint('app_cliente',
                         url_prefix=ROTA_CLIENTE)
 
 business_cliente = BusinessCliente()
-base_validade = utils.BaseValidade()
+base_validate = utils.BaseValidate()
 default_error = {'message': 'Não foi possível salvar um cliente, contate o ADM'}
 
 
@@ -19,7 +18,7 @@ default_error = {'message': 'Não foi possível salvar um cliente, contate o ADM
 def get():
     if request.method == utils.POST:
         data = request.get_json()
-        error, msg = base_validade.validar(data, Cliente.CAMPOS_OBRIGATORIOS, business_cliente)
+        error, msg = base_validate.validar(data, Cliente.CAMPOS_OBRIGATORIOS, business_cliente)
         if error:
             return make_response(msg, 404)
         cliente = business_cliente.save(data)
@@ -33,9 +32,9 @@ def get():
 @app_cliente.route('/<int:id>/', methods=[utils.GET])
 def get_by_id(id):
     cliente = business_cliente.get_by_id(id)
-    if not cliente:
-        return make_response({"error": "Cliente não encontrado"}, 404)
-    return cliente.get_json()
+    if cliente:
+        return cliente.get_json()
+    return make_response({"error": "Cliente não encontrado"}, 404)
 
 @app_cliente.route('/<int:id>/', methods=[utils.DELETE])
 def delete(id):
@@ -47,12 +46,12 @@ def delete(id):
 @app_cliente.route('/<int:id>', methods=[utils.PUT])
 def update(id):
     data = request.get_json()
-    error, msg = base_validade.validar(data, Cliente.CAMPOS_OBRIGATORIOS, business_cliente)
+    error, msg = base_validate.validar(data, Cliente.CAMPOS_OBRIGATORIOS, business_cliente)
     if not error:
         update_cliente = business_cliente.update(id, data)
         if update_cliente:
             return make_response({"Sucess": "UPDATED"}, 200)
         else:
-            msg = {"error": "Cliente não encontrado"}
+            return make_response({"error": "Cliente não encontrado"}, 404)
     return make_response(msg, 404)
 

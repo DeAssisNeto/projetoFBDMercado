@@ -5,7 +5,7 @@ GET = 'GET'
 DELETE = 'DELETE'
 PUT = 'PUT'
 
-class BaseValidade():
+class BaseValidate():
     def validar(self, data, campos, objetc):
         mensagem_error = {}
         flag_error = False

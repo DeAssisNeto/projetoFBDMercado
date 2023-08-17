@@ -10,7 +10,7 @@ app_produto = Blueprint('app_produto',
                         url_prefix=ROTA_PRODUTO)
 
 business_produto = BusinessProduto()
-base_validate = utils.BaseValidade()
+base_validate = utils.BaseValidate()
 default_error = {'message': 'Não foi possível salvar um cliente, contate o ADM'}
 
 @app_produto.route('/', methods=[utils.GET, utils.POST])

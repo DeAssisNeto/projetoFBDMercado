@@ -63,7 +63,7 @@ class DaoCliente(SQLCliente):
     def delete(self, id):
         cliente = self.get_by_id(id)
         if cliente:
-            sql = self.DELETE.format(id)
+            sql = self.DELETE.format(self.TABLE, id)
             self.cursor.execute(sql)
             self.connect.commit()
             return True
@@ -71,8 +71,8 @@ class DaoCliente(SQLCliente):
 
     def update(self, id, cliente_new):
         cliente_old = self.get_by_id(id)
-        sql = self.UPDATE.format(cliente_new.nome, cliente_new.cpf, id)
         if cliente_old:
+            sql = self.UPDATE.format(self.TABLE, cliente_new.nome, cliente_new.cpf, id)
             self.cursor.execute(sql)
             self.connect.commit()
             return True
