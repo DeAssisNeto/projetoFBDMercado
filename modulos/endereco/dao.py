@@ -38,6 +38,7 @@ class DaoEndereco(SQLEndereco):
         self._execute_sql(sql)
         endereco = self._create_object(self.cursor.fetchone())
         return endereco
+
     def save(self, endereco):
         sql = self.INSERT.format(self.TABLE, endereco.rua, endereco.bairro, endereco.cep, endereco.id_cliente)
         self._execute_sql(sql)
@@ -47,20 +48,13 @@ class DaoEndereco(SQLEndereco):
         return endereco
 
     def delete(self, id):
-        endereco = self.get_by_id(id)
-        if endereco:
-            sql = self.DELETE.format(self.TABLE, id)
-            self.cursor.execute(sql)
-            self.connect.commit()
-            return True
-        return False
+        sql = self.DELETE.format(self.TABLE, id)
+        self.cursor.execute(sql)
+        self.connect.commit()
 
 
     def update(self, id, endereco_new):
-        endereco_old = self.get_by_id(id)
-        if endereco_old:
-            sql = self.UPDATE.format(self.TABLE, endereco_new.rua, endereco_new.bairro, endereco_new.cep, endereco_new.id_cliente, id)
-            self.cursor.execute(sql)
-            self.connect.commit()
-            return True
-        return False
+        sql = self.UPDATE.format(self.TABLE, endereco_new.rua, endereco_new.bairro, endereco_new.cep, endereco_new.id_cliente, id)
+        self.cursor.execute(sql)
+        self.connect.commit()
+

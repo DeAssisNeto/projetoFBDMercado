@@ -37,7 +37,7 @@ class BusinessCliente(BaseValidate):
         return cliente
 
     def delete(self, id):
-        return self.cliente_dao.delete(id)
+        self.cliente_dao.delete(id)
 
     def update(self, id, cliente_new):
-        return self.cliente_dao.update(id, Cliente(**cliente_new))
+        self.cliente_dao.update(id, Cliente(**cliente_new))

@@ -51,19 +51,13 @@ class DaoProduto(SQLProduto):
         return produto
 
     def delete(self, id):
-        produto = self.get_by_id(id)
-        if produto:
-            sql = self.DELETE.format(self.TABLE, id)
-            self.cursor.execute(sql)
-            self.connect.commit()
-            return True
-        return False
+        sql = self.DELETE.format(self.TABLE, id)
+        self.cursor.execute(sql)
+        self.connect.commit()
+
 
     def update(self, id, produto_new):
-        produto_old = self.get_by_id(id)
-        if produto_old:
-            sql = self.UPDATE.format(self.TABLE, produto_new.nome, produto_new.preco, produto_new.validade, produto_new.cod_barras, produto_new.quantidade, id)
-            self.cursor.execute(sql)
-            self.connect.commit()
-            return True
-        return False
+        sql = self.UPDATE.format(self.TABLE, produto_new.nome, produto_new.preco, produto_new.validade,
+                                 produto_new.cod_barras, produto_new.quantidade, id)
+        self.cursor.execute(sql)
+        self.connect.commit()

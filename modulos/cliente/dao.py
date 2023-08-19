@@ -61,19 +61,11 @@ class DaoCliente(SQLCliente):
         return None
 
     def delete(self, id):
-        cliente = self.get_by_id(id)
-        if cliente:
-            sql = self.DELETE.format(self.TABLE, id)
-            self.cursor.execute(sql)
-            self.connect.commit()
-            return True
-        return False
+        sql = self.DELETE.format(self.TABLE, id)
+        self.cursor.execute(sql)
+        self.connect.commit()
 
     def update(self, id, cliente_new):
-        cliente_old = self.get_by_id(id)
-        if cliente_old:
-            sql = self.UPDATE.format(self.TABLE, cliente_new.nome, cliente_new.cpf, id)
-            self.cursor.execute(sql)
-            self.connect.commit()
-            return True
-        return False
+        sql = self.UPDATE.format(self.TABLE, cliente_new.nome, cliente_new.cpf, id)
+        self.cursor.execute(sql)
+        self.connect.commit()

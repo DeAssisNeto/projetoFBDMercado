@@ -48,7 +48,7 @@ class BusinessProduto(BaseValidate):
         return produto
 
     def delete(self, id):
-        return self.produto_dao.delete(id)
+        self.produto_dao.delete(id)
 
     def update(self, id, produto_new):
-        return self.produto_dao.update(id, Produto(**produto_new))
+        self.produto_dao.update(id, Produto(**produto_new))

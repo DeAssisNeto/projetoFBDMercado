@@ -8,7 +8,6 @@ ROTA_ENDERECO = '/endereco'
 app_endereco = Blueprint('app_endereco',
                          __name__,
                          url_prefix=ROTA_ENDERECO)
-
 business_endereco = BusinessEndereco()
 base_validate = utils.BaseValidate()
 default_error = {'message': 'Não foi possível salvar um endereco, contate o ADM'}
@@ -23,7 +22,6 @@ def get():
         endereco = business_endereco.save(data)
         if endereco:
             return make_response({"id": endereco.id}, 200)
-
     name = request.args.get('nome', None)
     return business_endereco.get_all(name)
 
@@ -36,19 +34,20 @@ def get_by_id(id):
 
 @app_endereco.route('/<int:id>/', methods=[utils.DELETE])
 def delete(id):
-    delete_endereco = business_endereco.delete(id)
-    if delete_endereco:
+    endereco = business_endereco.get_by_id(id)
+    if endereco:
+        business_endereco.delete(id)
         return make_response({"Sucess": "DELETED"}, 200)
     return make_response({"error": "Endereço não encontrado"}, 404)
 
 @app_endereco.route('/<int:id>/', methods=[utils.PUT])
 def update(id):
-    data = request.get_json()
-    error, msg = base_validate.validar(data, Endereco.CAMPOS_OBRIGATORIOS, business_endereco)
-    if not error:
-        udpdate_endereco = business_endereco.update(id, data)
-        if udpdate_endereco:
+    endereco = business_endereco.get_by_id(id)
+    if endereco:
+        data = request.get_json()
+        error, msg = base_validate.validar(data, Endereco.CAMPOS_OBRIGATORIOS, business_endereco)
+        if not error:
+            business_endereco.update(id, data)
             return make_response({"Sucess": "UPDATED"}, 200)
-        else:
-            return make_response({"error": "Endereco não encontrado"}, 404)
-    return make_response(msg, 404)
+        return make_response(msg, 404)
+    return make_response({"error": "Endereco não encontrado"}, 404)

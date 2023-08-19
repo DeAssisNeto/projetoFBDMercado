@@ -44,7 +44,7 @@ class BusinessEndereco(BaseValidate):
         return endereco
 
     def delete(self, id):
-        return self.endereco_dao.delete(id)
+        self.endereco_dao.delete(id)
 
     def update(self, id, data):
-        return self.endereco_dao.update(id, Endereco(**data))
+        self.endereco_dao.update(id, Endereco(**data))

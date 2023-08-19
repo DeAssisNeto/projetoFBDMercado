@@ -38,20 +38,21 @@ def get_by_id(id):
 
 @app_cliente.route('/<int:id>/', methods=[utils.DELETE])
 def delete(id):
-    delete_cliente = business_cliente.delete(id)
-    if delete_cliente:
+    cliente = business_cliente.get_by_id(id)
+    if cliente:
+        business_cliente.delete(id)
         return make_response({"Sucess": "DELETED"}, 200)
     return make_response({"error": "Cliente não encontrado"}, 404)
 
 @app_cliente.route('/<int:id>', methods=[utils.PUT])
 def update(id):
-    data = request.get_json()
-    error, msg = base_validate.validar(data, Cliente.CAMPOS_OBRIGATORIOS, business_cliente)
-    if not error:
-        update_cliente = business_cliente.update(id, data)
-        if update_cliente:
+    cliente = business_cliente.get_by_id(id)
+    if cliente:
+        data = request.get_json()
+        error, msg = base_validate.validar(data, Cliente.CAMPOS_OBRIGATORIOS, business_cliente)
+        if not error:
+            business_cliente.update(id, data)
             return make_response({"Sucess": "UPDATED"}, 200)
-        else:
-            return make_response({"error": "Cliente não encontrado"}, 404)
-    return make_response(msg, 404)
+        return make_response(msg, 404)
+    return make_response({"error": "Cliente não encontrado"}, 404)
 
