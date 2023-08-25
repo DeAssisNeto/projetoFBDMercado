@@ -1,4 +1,4 @@
-
+from modulos.pedido.pedido import Pedido
 
 POST = 'POST'
 GET = 'GET'
@@ -16,7 +16,10 @@ class BaseValidate():
             func = hasattr(objetc, func_name)
             if func:
                 func = getattr(objetc, func_name)
-                data_value = func(data.get(campo, None))
+                if func_name=="_validate_id_produto":
+                    data_value = func(data.get(campo, None), data.get('quant_produto'))
+                else:
+                    data_value = func(data.get(campo, None))
                 if data_value is not None:
                     mensagem_error[campo] = data_value
                     flag_error = True

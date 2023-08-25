@@ -1,6 +1,7 @@
 from modulos.cliente.dao import DaoCliente
 from modulos.pedido.dao import DaoPedido
 from modulos.pedido.pedido import Pedido
+from modulos.produto.business import BusinessProduto
 from utils import BaseValidate
 
 
@@ -11,6 +12,14 @@ class BusinessPedido(BaseValidate):
     def _validate_quant_produto(self, value):
         if not value:
             return 'Este campo é obrigatório!'
+        return None
+
+    def _validate_id_produto(self, value, quant_produto=None):
+        if not value:
+            return 'Este campo é obrigatório!'
+        quant_estoque =BusinessProduto().get_by_id(value).quantidade
+        # if quant_produto and quant_estoque < quant_produto:
+        #     return f'Não é possível adicionar {quant_produto} produtos pois só tem {quant_estoque} em estoque'
         return None
 
     def _validate_id_cliente(self, value):

@@ -8,3 +8,4 @@ class SQLProduto(object):
     INSERT = "INSERT INTO {} (nome, preco, validade, cod_barras, quantidade, status) VALUES ('{}', '{}', '{}', '{}', '{}', TRUE) RETURNING id"
     DELETE = "UPDATE {} SET status=FALSE WHERE id={}"
     UPDATE = "UPDATE {} SET nome='{}', preco='{}', validade='{}', cod_barras='{}', quantidade={} WHERE id={}"
+

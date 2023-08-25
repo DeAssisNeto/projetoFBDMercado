@@ -20,6 +20,7 @@ class BusinessCliente(BaseValidate):
             return f'O campo cpf deve ter {Cliente.MAX_LENGTH_CPF} caracteres, ele contém {len(value)}'
         if self.cliente_dao.get_by_cpf(value):
             return 'Já existe um cliente cadastrado com esse CPF!'
+        return None
 
     def get_all(self, filtro_nome):
         clientes = self.cliente_dao.get_all(filtro_nome)

@@ -1,6 +1,8 @@
 from connection.ServerConnection import ConnectDataBase
 from modulos.produto.produto import Produto
 from modulos.produto.sql import SQLProduto
+# from modulos.produto_pedido.business import BusinessProdutoPedido
+from sql_selects import SQLSelects
 
 
 class DaoProduto(SQLProduto):
@@ -42,6 +44,7 @@ class DaoProduto(SQLProduto):
         self._execute_sql(sql)
         produto = self._create_objetc(self.cursor.fetchone())
         return produto
+
     def save(self, produto):
         sql = self.INSERT.format(self.TABLE, produto.nome, produto.preco, produto.validade, produto.cod_barras, produto.quantidade)
         self.cursor.execute(sql)
@@ -61,3 +64,4 @@ class DaoProduto(SQLProduto):
                                  produto_new.cod_barras, produto_new.quantidade, id)
         self.cursor.execute(sql)
         self.connect.commit()
+

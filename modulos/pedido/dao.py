@@ -38,7 +38,7 @@ class DaoPedido(SQLPedido):
         return pedido
 
     def save(self, pedido):
-        sql = self.INSERT.format(self.TABLE, pedido.quant_produto, pedido.id_cliente)
+        sql = self.INSERT.format(self.TABLE, pedido.quant_produto, pedido.id_produto, pedido.id_cliente)
         self.cursor.execute(sql)
         self.connect.commit()
         data = self.cursor.fetchone()
@@ -51,6 +51,6 @@ class DaoPedido(SQLPedido):
         self.connect.commit()
 
     def update(self, id, pedido_new):
-        sql = self.UPDATE.format(self.TABLE, pedido_new.quant_produto, pedido_new.id_cliente, id)
+        sql = self.UPDATE.format(self.TABLE, pedido_new.quant_produto, pedido_new.id_produto, pedido_new.id_cliente, id)
         self.cursor.execute(sql)
         self.connect.commit()

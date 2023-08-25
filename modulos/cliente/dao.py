@@ -69,3 +69,6 @@ class DaoCliente(SQLCliente):
         sql = self.UPDATE.format(self.TABLE, cliente_new.nome, cliente_new.cpf, id)
         self.cursor.execute(sql)
         self.connect.commit()
+
+    def listar_produtos_pedidos(self):
+        pass
