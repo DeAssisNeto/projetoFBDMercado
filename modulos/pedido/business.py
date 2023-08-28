@@ -45,3 +45,6 @@ class BusinessPedido(BaseValidate):
 
     def update(self, id, data):
         self.pedido_dao.update(id, Pedido(**data))
+
+    def reconnect(self):
+        self.pedido_dao.close_and_new_connection()

@@ -53,8 +53,11 @@ class BusinessProduto(BaseValidate):
     def update(self, id, produto_new):
         self.produto_dao.update(id, Produto(**produto_new))
 
-    def get_produto_by_id_pedido(self, id_pedido):
-        print("id", id_pedido)
-        if id_pedido:
-            return self.produto_dao.get_produto_by_id_pedido(id_pedido)
-        return None
+    # def get_produto_by_id_pedido(self, id_pedido):
+    #     print("id", id_pedido)
+    #     if id_pedido:
+    #         return self.produto_dao.get_produto_by_id_pedido(id_pedido)
+    #     return None
+
+    def reconnect(self):
+        self.produto_dao.close_and_new_connection()

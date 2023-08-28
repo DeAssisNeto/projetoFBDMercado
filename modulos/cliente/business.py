@@ -7,7 +7,6 @@ class BusinessCliente(BaseValidate):
     def __init__(self):
         self.cliente_dao = DaoCliente()
 
-
     def _validate_nome(self, value):
         if not value:
             return 'Este campo é obrigatório!'
@@ -42,3 +41,6 @@ class BusinessCliente(BaseValidate):
 
     def update(self, id, cliente_new):
         self.cliente_dao.update(id, Cliente(**cliente_new))
+
+    def reconnect(self):
+        self.cliente_dao.close_and_new_connection()

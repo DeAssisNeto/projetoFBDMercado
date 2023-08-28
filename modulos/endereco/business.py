@@ -48,3 +48,6 @@ class BusinessEndereco(BaseValidate):
 
     def update(self, id, data):
         self.endereco_dao.update(id, Endereco(**data))
+
+    def reconnect(self):
+        self.endereco_dao.close_and_new_connection()

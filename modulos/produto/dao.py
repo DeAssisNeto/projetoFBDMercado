@@ -1,8 +1,6 @@
 from connection.ServerConnection import ConnectDataBase
 from modulos.produto.produto import Produto
 from modulos.produto.sql import SQLProduto
-# from modulos.produto_pedido.business import BusinessProdutoPedido
-from sql_selects import SQLSelects
 
 
 class DaoProduto(SQLProduto):
@@ -65,3 +63,6 @@ class DaoProduto(SQLProduto):
         self.cursor.execute(sql)
         self.connect.commit()
 
+    def close_and_new_connection(self):
+        self.connect = ConnectDataBase()
+        self.cursor = self.connect.get_cursor()

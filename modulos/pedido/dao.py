@@ -54,3 +54,7 @@ class DaoPedido(SQLPedido):
         sql = self.UPDATE.format(self.TABLE, pedido_new.quant_produto, pedido_new.id_produto, pedido_new.id_cliente, id)
         self.cursor.execute(sql)
         self.connect.commit()
+
+    def close_and_new_connection(self):
+        self.connect = ConnectDataBase()
+        self.cursor = self.connect.get_cursor()

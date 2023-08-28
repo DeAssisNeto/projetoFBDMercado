@@ -58,3 +58,7 @@ class DaoEndereco(SQLEndereco):
         self.cursor.execute(sql)
         self.connect.commit()
 
+    def close_and_new_connection(self):
+        self.connect = ConnectDataBase()
+        self.cursor = self.connect.get_cursor()
+
