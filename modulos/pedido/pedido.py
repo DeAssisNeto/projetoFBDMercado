@@ -23,3 +23,18 @@ class Pedido:
         for attr in self.attributes:
             json_data[attr] = getattr(self, attr)
         return json_data
+
+"""
+{
+    "id": "",
+    "data": {
+        "cliente": {
+            
+        },
+        "produto": {
+            
+        }
+    },
+    "status": "boolean"
+}
+"""

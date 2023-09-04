@@ -1,6 +1,8 @@
 from connection.ServerConnection import ConnectDataBase
+from modulos.cliente.dao import DaoCliente
 from modulos.pedido.pedido import Pedido
 from modulos.pedido.sql import SQLPedido
+from modulos.produto.dao import DaoProduto
 
 
 class DaoPedido(SQLPedido):
@@ -13,6 +15,7 @@ class DaoPedido(SQLPedido):
         if insert:
             return
         self.columns_name = [desc[0] for desc in self.cursor.description]
+        print(self.columns_name)
 
     def _create_objetc(self, data):
         if data:
@@ -28,8 +31,22 @@ class DaoPedido(SQLPedido):
         pedidos_list = []
         for pedido in pedidos:
             data = dict(zip(self.columns_name, pedido))
+            data["data"] = {"data_cliente": self._get_cliente_by_id(data[self.columns_name[3]]).get_json(),
+                            "data_produto": self._get_prduto_by_id(data[self.columns_name[2]]).get_json()}
+            data.pop("id_produto")
+            data.pop("id_cliente")
             pedidos_list.append(data)
         return pedidos_list
+
+    def _get_cliente_by_id(self, id_cliente):
+        dao_cliente = DaoCliente()
+        return dao_cliente.get_by_id(id_cliente)
+
+    def _get_prduto_by_id(self, id_produto):
+        dao_produto = DaoProduto()
+        return dao_produto.get_by_id(id_produto)
+
+
 
     def get_by_id(self, id):
         sql = self.SELECT_BY_ID.format(self.TABLE, id)

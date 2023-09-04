@@ -17,3 +17,11 @@ def home():
     return {}
 
 app.run()
+
+"""
+Rever a parte que retorna o pedido com o id do produto e do cliente. Retornar todas as informações "usáveis", não apenas o id. (DONE)
+Rever a estrutura das tabelas
+Acrescentar tabelas para complementar o projeto (tabela para vendas, tabela(s) para gerenciamento de estoque)
+Fazer a mascara para cpf, codigo de barrra, cep, etc.
+Fazer uma consulta de pedidos por clientes.
+"""
